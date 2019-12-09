@@ -1,3 +1,6 @@
 CLIENT, SERVER = range(2)
 IMAGE_DIM = 32
 NUM_CLASSES = 10
+BRANCH_NUMBER = 3
+
+PARAM_PATH = './model_params/'

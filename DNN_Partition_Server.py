@@ -22,6 +22,7 @@ class Dispacher(object):
         input = torch.from_numpy(readed)
 
         out = infer(SERVER, 3, 1, input)
+        print(out)
         max_index = str(torch.max(out,1))
         return max_index
 
