@@ -1,6 +1,6 @@
 from config import *
 
-
+# TODO: 缺少model loading time
 branch1 = ['conv1', 'relu0', 'pool0', 'norm0', 'convB1', 'relu1', 'convB2', 'relu2', 'pool1', 'linear']
 branch2 = ['conv1', 'relu0', 'norm0', 'pool0', 'conv2', 'relu1', 'pool1', 'norm1', 'convB1', 'relu2', 'pool2',
            'linear']
@@ -11,11 +11,30 @@ branch1_partition_index = [2, 8]
 branch2_partition_index = [3, 6, 10]
 branch3_partition_index = [3, 7, 14]
 
-# partitiion point number for every layer
+# partitiion point number for every branch
 partition_point_number = [2, 2, 3]
 
 branches_info = [(branch1, branch1_partition_index), (branch2, branch2_partition_index), (branch3, branch3_partition_index)]
 
+# Bytes
+model_size = {
+    'branch1_part1L': 20087,
+    'branch1_part1R': 111804,
+    'branch1_part2L': 131559,
+    'branch1_part2R': 63325,
+    'branch2_part1L': 20074,
+    'branch2_part1R': 1457263,
+    'branch2_part2L': 1249966,
+    'branch2_part2R': 227393,
+    'branch2_part3L': 1471614,
+    'branch2_part3R': 5723,
+    'branch3_part1L': 20074,
+    'branch3_part1R': 93870657,
+    'branch3_part2L': 1249896,
+    'branch3_part2R': 92640835,
+    'branch3_part3L': 9806701,
+    'branch3_part3R': 84083973,
+}
 
 ###############################################
 # Mobile device side time prediction class
