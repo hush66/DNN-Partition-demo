@@ -207,3 +207,36 @@ class ServerTime:
         for layer in layers:
             time += time_dict[layer]
         return time
+    
+class OutputSizeofPartitionLayer:   
+    def __init__(self):
+        self.branch1={
+            'pool0':64 * 15 * 15* 32,
+            'pool1':32 *  7 * 7 * 32,
+        }
+        self.branch2 = {
+            'pool0': 64 * 15 * 15 * 32,
+            'pool1': 192 * 6 * 6 *32,
+            'pool2': 32 * 2 * 2 *32,
+        }
+        self.branch3 = {
+            'pool0': 64 * 15 * 15 *32,
+            'pool1': 192 * 6 * 6 *32,
+            'pool2':256 * 2 * 2 *32,
+        }
+        self.branches = [self.branch1, self.branch2, self.branch3]
+        
+    def output_size(self, branch_number, partition_point_number):
+        '''
+        :return:unit(bit)
+        '''
+        branch_layer, partition_point_index_set = branches_info[branch_number]
+        partition_point =  partition_point_index_set[partition_point_number]
+        # layers in partitioned model
+        layer = branch_layer[partition_point:partition_point+1][0]
+        outputsize_dict = self.branches[branch_number]
+        return outputsize_dict[layer]
+        
+if __name__=='__main__':
+    ospl=OutputSizeofPartitionLayer()
+    print(ospl.output_size(0,0))
