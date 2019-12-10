@@ -22,9 +22,10 @@ class Dispacher(object):
         input = torch.from_numpy(readed)
 
         out = infer(SERVER, 3, 1, input)
-        print(out)
-        max_index = str(torch.max(out,1))
-        return max_index
+        prob = list(torch.exp(out[-1]).detach().numpy())
+        print(prob)
+        pred = str((prob.index(max(prob)), max(prob)))
+        return pred
 
 if __name__ == '__main__':
     server_start()
