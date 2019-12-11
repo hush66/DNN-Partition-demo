@@ -19,7 +19,6 @@ def infer(cORs, ep, pp, input):
     LOrR = 'L' if cORs == CLIENT else 'R'
     params_path = PARAM_PATH + netPair + LOrR
     net.load_state_dict(torch.load(params_path))
-    print(net.state_dict().keys())
 
     net.eval()
 

@@ -40,4 +40,5 @@ if __name__ == '__main__':
 
     client = client_start()
     info = file_info(FILENAME)
-    print(client.partition(info, ep, pp))
+    print('Predict answer is: ' + client.partition(info, ep, pp))
+    print('True label is: %d' %labels[0])
