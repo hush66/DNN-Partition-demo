@@ -1,6 +1,5 @@
 from config import *
 
-# TODO: 缺少model loading time
 branch1 = ['conv1', 'relu0', 'pool0', 'norm0', 'convB1', 'relu1', 'convB2', 'relu2', 'pool1', 'linear']
 branch2 = ['conv1', 'relu0', 'norm0', 'pool0', 'conv2', 'relu1', 'pool1', 'norm1', 'convB1', 'relu2', 'pool2',
            'linear']
@@ -226,3 +225,34 @@ class ServerTime:
         for layer in layers:
             time += time_dict[layer]
         return time
+
+
+class OutputSizeofPartitionLayer:
+    # float32 which is 4B(32 bits)
+    branch1 = {
+        'pool0': 64 * 15 * 15 * 32,
+        'pool1': 32 * 7 * 7 * 32,
+    }
+    branch2 = {
+        'pool0': 64 * 15 * 15 * 32,
+        'pool1': 192 * 6 * 6 * 32,
+        'pool2': 32 * 2 * 2 * 32,
+    }
+    branch3 = {
+        'pool0': 64 * 15 * 15 * 32,
+        'pool1': 192 * 6 * 6 * 32,
+        'pool2': 256 * 2 * 2 * 32,
+    }
+    branches = [branch1, branch2, branch3]
+
+    @classmethod
+    def output_size(cls, branch_number, partition_point_number):
+        '''
+        :return:unit(bit)
+        '''
+        branch_layer, partition_point_index_set = branches_info[branch_number]
+        partition_point =  partition_point_index_set[partition_point_number]
+        # layers in partitioned model
+        layer = branch_layer[partition_point]
+        outputsize_dict = cls.branches[branch_number]
+        return outputsize_dict[layer]

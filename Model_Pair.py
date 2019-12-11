@@ -131,6 +131,7 @@ class NetExit2Part1R(nn.Module):
         x = self.branch2(x)
         x = x.view(-1, 128)
         x = self.branch2fc(x)
+        return x
 
 ####################
 # Exit 2 Part 2
@@ -179,6 +180,7 @@ class NetExit2Part2R(nn.Module):
         x = self.branch2(x)
         x = x.view(-1, 128)
         x = self.branch2fc(x)
+        return x
 
 ####################
 # Exit 2 Part 3
@@ -224,6 +226,7 @@ class NetExit2Part3R(nn.Module):
     def forward(self, x):
         x = x.view(-1, 128)
         x = self.branch2fc(x)
+        return x
 
 ####################
 # Exit 3 Part 1

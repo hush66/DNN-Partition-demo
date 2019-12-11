@@ -13,17 +13,15 @@ def server_start():
 
 
 class Dispacher(object):
-    def partition(self, file):
+    def partition(self, file, ep, pp):
         for filename, content in file.items():
             with open('recv_'+filename, 'wb') as f:
                 f.write(content)
 
-        readed = np.load('intermediate.npy')
+        readed = np.load('recv_intermediate.npy')
         input = torch.from_numpy(readed)
-
-        out = infer(SERVER, 3, 1, input)
-        prob = list(torch.exp(out[-1]).detach().numpy())
-        print(prob)
+        out = infer(SERVER, ep, pp, input)
+        prob = torch.exp(out).detach().numpy().tolist()[0]
         pred = str((prob.index(max(prob)), max(prob)))
         return pred
 

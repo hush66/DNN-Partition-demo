@@ -19,19 +19,7 @@ def infer(cORs, ep, pp, input):
     LOrR = 'L' if cORs == CLIENT else 'R'
     params_path = PARAM_PATH + netPair + LOrR
     net.load_state_dict(torch.load(params_path))
-    '''
-    model_dict = net.state_dict()
-    params = torch.load('./alexnet_data_out/models/epoch_910_model.pt', map_location=torch.device('cpu'))
-    # filter out needed keys
-    #loaded_dict = {k:v for k,v in params.items() if k in model_dict}
-    loaded_dict = OrderedDict()
-    for k, v in params.items():
-        if k[7:] in model_dict:
-            loaded_dict[k[7:]] = v
-    # overwrite entries in the existing state dict
-    model_dict.update(loaded_dict)
-    net.load_state_dict(model_dict)
-    '''
+    print(net.state_dict().keys())
 
     net.eval()
 

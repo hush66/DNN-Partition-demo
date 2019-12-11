@@ -4,6 +4,7 @@ from thriftpy2.rpc import make_client
 from Branchy_Alexnet_Infer import infer
 from utils import test_data
 from config import *
+from Optimize import Optimize
 
 FILENAME = 'intermediate.npy'
 
@@ -18,12 +19,20 @@ def file_info(filename):
 
 if __name__ == '__main__':
 
+    # get time threshold
+    threshold = float(input('Please input latency threshold: '))
+
+    # get partition point and exit point
+    ep, pp = Optimize(threshold)
+
     # get test data
     dataiter = test_data()
     images, labels = dataiter.next()
 
     # infer left part
-    out = infer(CLIENT, 3, 1, images)
+    out = infer(CLIENT, ep, pp, images)
+
+    print('Left part of model inference complete.')
 
     # save intermediate for RPC process
     intermediate = out.detach().numpy()
@@ -31,4 +40,4 @@ if __name__ == '__main__':
 
     client = client_start()
     info = file_info(FILENAME)
-    print(client.partition(info))
+    print(client.partition(info, ep, pp))
