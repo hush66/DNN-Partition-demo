@@ -38,6 +38,7 @@ class NetExit1Part1R(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=3, stride=2),
         )
+        self.branch1fc = nn.Linear(1568, 10)
 
     def forward(self, x):
         x = self.branch1(x)
