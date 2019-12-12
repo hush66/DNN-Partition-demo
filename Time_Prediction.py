@@ -91,26 +91,26 @@ class DeviceTime:
 
     # time predict function
     def device_lrn(self, data_size):
-        return 1.504004534429181e-08 * data_size + 0.00023856992705946142
+        return 9.013826444839453e-08 * data_size + 0.0013616842338199375
 
     def device_pool(self, input_data_size, output_data_size):
-        return 2.6848359497725075e-10 * input_data_size + 1.4361124920215772e-08 * output_data_size + 1.7488092089789508e-05
+        return 1.1864462944013584e-08 * input_data_size - 2.031421398089179e-09 * output_data_size + 0.0001234705954153948
 
     def device_relu(self, input_data_size):
-        return 1.0365086209870186e-09 * input_data_size + 0.0002997479361697905
+        return 6.977440389615429e-09 * input_data_size + 0.0005612587990019447
 
     def device_dropout(self, input_data_size):
-        return 3.5615447448579893e-09 * input_data_size + 0.0010654349730239024
+        return 9.341929545685408e-08 * input_data_size + 0.0007706006740869353
 
     def device_linear(self, input_data_size, output_data_size):
-        return 1.4168476912236977e-09 * input_data_size + 9.367565952531078e-06 * output_data_size + 0.00021007062556504494
+        return 1.1681471979101294e-08 * input_data_size + 0.00029824333961563884 * output_data_size - 0.0011913997548602204
 
     def device_conv(self, feature_map_amount, compution_each_pixel):
         # compution_each_pixel stands for (filter size / stride)^2 * (number of filters)
-        return 3.7532886332610986e-06 * feature_map_amount + 7.285089421250621e-12 * compution_each_pixel + 0.00038511489900182815
+        return 0.00020423363723714956 * feature_map_amount + 4.2077298118910815e-11 * compution_each_pixel + 0.025591776113868925
 
     def device_model_load(self, model_size):
-        return 8.081666725164214e-09 * model_size + 0.02417584685455454
+        return 2.2478782378225012e-08 * model_size + 2.527183754111472
 
     # tool
     def predict_time(self, branch_number, partition_point_number):
