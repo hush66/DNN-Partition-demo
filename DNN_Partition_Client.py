@@ -5,6 +5,7 @@ from Branchy_Alexnet_Infer import infer
 from utils import test_data
 from config import *
 from Optimize import Optimize
+import time
 
 FILENAME = 'intermediate.npy'
 
@@ -22,12 +23,15 @@ if __name__ == '__main__':
     # get time threshold
     threshold = float(input('Please input latency threshold: '))
 
-    # get partition point and exit point
-    ep, pp = Optimize(threshold)
-
     # get test data
     dataiter = test_data()
     images, labels = dataiter.next()
+
+    start = time.time()
+
+    # get partition point and exit point
+    ep, pp = Optimize(threshold)
+    print('Branch is %d, and partition point is %d' %(ep, pp))
 
     # infer left part
     out = infer(CLIENT, ep, pp, images)
@@ -42,3 +46,6 @@ if __name__ == '__main__':
     info = file_info(FILENAME)
     print('Predict answer is: ' + client.partition(info, ep, pp))
     print('True label is: %d' %labels[0])
+
+    end = time.time()
+    print('Total time: %f' %(end-start))
